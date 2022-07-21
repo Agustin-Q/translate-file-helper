@@ -41,67 +41,6 @@ function compressAllPaths(
   console.log("modificationCount", modificationCount);
 }
 
-function getRootNodes(translations) {
-  let rootNodes = [];
-  for (key in translations) {
-    if (!translations[key].startsWith("@:")) rootNodes.push(key);
-  }
-  return rootNodes;
-}
-
-// function compressPath(node, nodes) {
-//   if (node.parent) {
-//     node.parent = compressPath.key;
-//   }
-//   // devolver el parent
-//   return getParent(node, nodes);
-// }
-
-// function createNodes(keys, translations) {
-//   translationNodes = [];
-
-//   for (let prop in translations) {
-//     translationNodes.push({
-//       parent: getParent(prop, translations),
-//       key: prop,
-//       protected: keys.includes(prop),
-//     });
-//   }
-//   return translationNodes;
-// }
-// node = {key, parent , protected}
-function createNodes(keys, translations, nodes) {
-  if (!nodes) nodes = [];
-  for (let prop in translations) {
-    console.log("prop", prop);
-    let parent = getParent(prop, translations);
-    console.log("parent", parent);
-    if (parent) {
-      parent = translationNodes[parent] = {};
-    }
-
-    translationNodes[prop] = {
-      parent,
-      protected: keys.includes(prop),
-    };
-  }
-  return translationNodes;
-}
-
-function createNode(keys, translationKey, translationValue) {
-  return {
-    parent: "",
-    key: translationKey,
-    protected: keys.includes(prop),
-  };
-}
-
-function getParent(key, translations) {
-  return translations[key]?.startsWith("@:")
-    ? translations[key].slice(2)
-    : undefined;
-}
-
 function getTranslation(key, translations, maxDepthLimit = 10, depth = 0) {
   // para evitar un bucle infinito y poner un limite a la recursion
   if (depth > maxDepthLimit) return undefined;
