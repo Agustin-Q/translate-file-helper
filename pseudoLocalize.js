@@ -62,6 +62,15 @@ function keyPart(translation, key) {
 function keyFull(translation, key) {
   return key;
 }
+
+// concatena la traduccion con algo
+function concat(translation, key) {
+  if (!translation.startsWith("@:")) {
+    return translation + " ###TRADU###";
+  } else {
+    return translation;
+  }
+}
 // lo deja como esta
 function none(translation, key) {
   return translation;
@@ -76,6 +85,9 @@ const pseudoLocalizers = {
   },
   keyFull: {
     localize: keyFull,
+  },
+  concat: {
+    localize: concat,
   },
   none: {
     localize: none,
