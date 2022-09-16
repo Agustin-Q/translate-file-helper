@@ -5,6 +5,10 @@ const filePath = argv[2];
 const outFilePath = argv[3];
 const option = argv[4];
 const pseudoLocalizeType = argv[5] || "fake";
+const concatString = argv[6] || "";
+console.log("concatString", concatString);
+if (filePath === outFilePath)
+  throw new Error("Input and output paths cant be the same.");
 
 function pseudoLocalize() {
   let translations = JSON.parse(
@@ -66,7 +70,7 @@ function keyFull(translation, key) {
 // concatena la traduccion con algo
 function concat(translation, key) {
   if (!translation.startsWith("@:")) {
-    return translation + " ###TRADU###";
+    return translation + concatString;
   } else {
     return translation;
   }
